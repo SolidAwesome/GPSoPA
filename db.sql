@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS donation_category;
 CREATE TABLE donation_category (
     categoryid SERIAL PRIMARY KEY,
     category VARCHAR(100) NOT NULL,
-    specification TEXT NOT NULL,
+    specification TEXT(300) NOT NULL,
     unit VARCHAR(20) NOT NULL,
     targetgroup VARCHAR(100),
     UNIQUE (category, targetgroup)
@@ -26,14 +26,18 @@ CREATE TABLE users (
     userid SERIAL PRIMARY KEY,
     username VARCHAR(10) NOT NULL,
     contact VARCHAR(100) NOT NULL UNIQUE,
-    userrole VARCHAR(20) NOT NULL CHECK (position IN ('donor', 'ngoadmin', 'admin')),
-    created TIMESTAMP DEFAULT NOW()
+    usertype VARCHAR(20) NOT NULL CHECK (usertype IN ('donor', 'ngoadmin', 'admin')),
+    created DATE DEFAULT NOW()
 );
+
+DROP TABLE IF EXISTS usertype;
+
+CREATE TABLE usertype
 
 DROP TABLE IF EXISTS ngo;
 
 CREATE TABLE ngo (
-    ngoid INT PRIMARY KEY,
+    ngoid SERIAL PRIMARY KEY,
     ngoname VARCHAR(150) NOT NULL UNIQUE
 );
 
@@ -45,7 +49,15 @@ CREATE TABLE donation_centers (
     street VARCHAR(150) NOT NULL,
     city VARCHAR(100) NOT NULL,
     postalcode VARCHAR(15) NOT NULL,
-    geolocation GEOGRAPHY NOT NULL
+    geolocation GEOMETRY(POINT,4326) NOT NULL
+);
+
+DROP TABLE IF EXISTS ngo_donationcenters;
+
+CREATE TABLE ngo_donationcenters (
+    id SERIAL PRIMARY KEY,
+    ngoid INT REFERENCES ON ngo(ngoid) NOT NULL,
+    centerid INT REFERENCES ON donation_centers(centerid) NOT NULL
 );
 
 DROP TABLE IF EXISTS events;
@@ -57,7 +69,7 @@ CREATE TABLE events (
     ngoid INT NOT NULL
         REFERENCES ngo(ngoid)
             ON DELETE CASCADE,
-    startdate DATETIME NOT NULL,
+    startdate DATE NOT NULL,
     enddate DATE,
     target_categoryid INT NOT NULL
         REFERENCES donation_category(categoryid),
@@ -75,5 +87,5 @@ CREATE TABLE donations (
     centerid INT REFERENCES donation_centers(centerid),
     eventid INT REFERENCES events(eventid),
     statusid INT NOT NULL REFERENCES donation_status(statusid),
-    donationdate TIMESTAMP DEFAULT NOW()
+    donationdate DATE DEFAULT NOW()
 );
