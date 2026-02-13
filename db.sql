@@ -2,10 +2,14 @@
 CREATE DATABASE sustainable_donation;
 SET search_path TO donation;
 
+DROP TABLE IF EXISTS donation_status;
+
 CREATE TABLE donation_status (
     statusid SERIAL PRIMARY KEY,
     donationstatus VARCHAR(50) NOT NULL UNIQUE
 );
+
+DROP TABLE IF EXISTS donation_category;
 
 CREATE TABLE donation_category (
     categoryid SERIAL PRIMARY KEY,
@@ -16,6 +20,8 @@ CREATE TABLE donation_category (
     UNIQUE (category, targetgroup)
 );
 
+DROP TABLE IF EXISTS users;
+
 CREATE TABLE users (
     userid SERIAL PRIMARY KEY,
     username VARCHAR(10) NOT NULL,
@@ -24,10 +30,14 @@ CREATE TABLE users (
     created TIMESTAMP DEFAULT NOW()
 );
 
+DROP TABLE IF EXISTS ngo;
+
 CREATE TABLE ngo (
     ngoid INT PRIMARY KEY,
     ngoname VARCHAR(150) NOT NULL UNIQUE
 );
+
+DROP TABLE IF EXISTS donation_centers;
 
 CREATE TABLE donation_centers (
     centerid SERIAL PRIMARY KEY,
@@ -37,6 +47,8 @@ CREATE TABLE donation_centers (
     postalcode VARCHAR(15) NOT NULL,
     geolocation GEOGRAPHY NOT NULL
 );
+
+DROP TABLE IF EXISTS events;
 
 CREATE TABLE events (
     eventid SERIAL PRIMARY KEY,
@@ -51,6 +63,8 @@ CREATE TABLE events (
         REFERENCES donation_category(categoryid),
     target_quantity INT CHECK (target_quantity >= 0)
 );
+
+DROP TABLE IF EXISTS donations;
 
 CREATE TABLE donations (
     id SERIAL PRIMARY KEY,
