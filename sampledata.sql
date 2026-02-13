@@ -1,6 +1,5 @@
-INSERT INTO donation_status (statusid, donationstatus) 
-    VALUES (1, 'Available'
-            2, 'Not available')
+INSERT INTO donation_status (donationstatus) VALUES ('Available');
+INSERT INTO donation_status (donationstatus) VALUES ('Not available');
 ;
 
 INSERT INTO donation_category (categoryid, category, specification, unit, targetgroup)

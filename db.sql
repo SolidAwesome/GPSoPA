@@ -20,25 +20,30 @@ CREATE TABLE donation_category (
     UNIQUE (category, targetgroup)
 );
 
+DROP TABLE IF EXISTS usertype;
+
+CREATE TABLE usertype (
+    usertypeid SERIAL PRIMARY KEY,
+    userrole VARCHAR(20) NOT NULL
+);
+
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     userid SERIAL PRIMARY KEY,
     username VARCHAR(10) NOT NULL,
+    userrole INT NOT NULL REFERENCES usertype(userid),
     contact VARCHAR(100) NOT NULL UNIQUE,
-    usertype VARCHAR(20) NOT NULL CHECK (usertype IN ('donor', 'ngoadmin', 'admin')),
     created DATE DEFAULT NOW()
 );
-
-DROP TABLE IF EXISTS usertype;
-
-CREATE TABLE usertype
 
 DROP TABLE IF EXISTS ngo;
 
 CREATE TABLE ngo (
     ngoid SERIAL PRIMARY KEY,
     ngoname VARCHAR(150) NOT NULL UNIQUE
+    contact VARCHAR(100) NOT NULL UNIQUE
+    
 );
 
 DROP TABLE IF EXISTS donation_centers;
@@ -56,8 +61,8 @@ DROP TABLE IF EXISTS ngo_donationcenters;
 
 CREATE TABLE ngo_donationcenters (
     id SERIAL PRIMARY KEY,
-    ngoid INT REFERENCES ON ngo(ngoid) NOT NULL,
-    centerid INT REFERENCES ON donation_centers(centerid) NOT NULL
+    ngoid INT REFERENCES ngo(ngoid) NOT NULL,
+    centerid INT REFERENCES donation_centers(centerid) NOT NULL
 );
 
 DROP TABLE IF EXISTS events;
