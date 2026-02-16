@@ -14,10 +14,10 @@ DROP TABLE IF EXISTS donation_category;
 CREATE TABLE donation_category (
     categoryid SERIAL PRIMARY KEY,
     category VARCHAR(100) NOT NULL,
-    specification TEXT(300) NOT NULL,
+    subcategory VARCHAR(300) NOT NULL,
     unit VARCHAR(20) NOT NULL,
     targetgroup VARCHAR(100),
-    UNIQUE (category, targetgroup)
+    UNIQUE (category, subcategory, targetgroup)
 );
 
 DROP TABLE IF EXISTS usertype;
@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     userid SERIAL PRIMARY KEY,
     username VARCHAR(10) NOT NULL,
-    userrole INT NOT NULL REFERENCES usertype(userid),
+    userrole INT NOT NULL REFERENCES usertype(usertypeid),
     contact VARCHAR(100) NOT NULL UNIQUE,
     created DATE DEFAULT NOW()
 );
@@ -41,9 +41,9 @@ DROP TABLE IF EXISTS ngo;
 
 CREATE TABLE ngo (
     ngoid SERIAL PRIMARY KEY,
-    ngoname VARCHAR(150) NOT NULL UNIQUE
+    ngoname VARCHAR(150) NOT NULL UNIQUE,
+    registrationnumber VARCHAR(100) NOT NULL UNIQUE,
     contact VARCHAR(100) NOT NULL UNIQUE
-    
 );
 
 DROP TABLE IF EXISTS donation_centers;
@@ -81,6 +81,13 @@ CREATE TABLE events (
     target_quantity INT CHECK (target_quantity >= 0)
 );
 
+DROP TABLE IF EXISTS sizes;
+
+CREATE TABLE sizes (
+    sizeid SERIAL PRIMARY KEY,
+    productsize VARCHAR (10) NOT NULL UNIQUE
+);
+
 DROP TABLE IF EXISTS donations;
 
 CREATE TABLE donations (
@@ -88,6 +95,7 @@ CREATE TABLE donations (
     userid INT NOT NULL REFERENCES users(userid),
     ngoid INT NOT NULL REFERENCES ngo(ngoid),
     categoryid INT NOT NULL REFERENCES donation_category(categoryid),
+    sizeid INT REFERENCES sizes(sizeid),
     quantity INT NOT NULL CHECK (quantity > 0),
     centerid INT REFERENCES donation_centers(centerid),
     eventid INT REFERENCES events(eventid),
