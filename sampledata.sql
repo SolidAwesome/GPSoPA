@@ -1,5 +1,8 @@
-INSERT INTO donation_status (donationstatus) VALUES ('Available');
-INSERT INTO donation_status (donationstatus) VALUES ('Not available');
+INSERT INTO donation_status (donationstatus) 
+    VALUES 
+        ('Available'),
+        ('Reserved'),
+        ('Collected')
 ;
 
 INSERT INTO donation_category (category, subcategory, unit, targetgroup)
@@ -79,7 +82,7 @@ INSERT INTO donation_centers (centername, street, city, postalcode, geolocation)
         ('North Center', 'North Ave 45', 'Porto', '4000-002', ST_SetSRID(ST_MakePoint(-8.611, 41.149), 4326))
 ;
 
-INSERT INTO ngo_donationcenters (ngoid, centerid)
+INSERT INTO ngo_center (ngoid, centerid)
     VALUES
         (1, 1),  -- Green Future → Central Donation Center
         (1, 2),  -- Green Future → North Center

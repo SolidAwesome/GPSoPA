@@ -57,12 +57,13 @@ CREATE TABLE donation_centers (
     geolocation GEOMETRY(POINT,4326) NOT NULL
 );
 
-DROP TABLE IF EXISTS ngo_donationcenters;
+DROP TABLE IF EXISTS ngo_center;
 
-CREATE TABLE ngo_donationcenters (
+CREATE TABLE ngo_center (
     id SERIAL PRIMARY KEY,
     ngoid INT REFERENCES ngo(ngoid) NOT NULL,
-    centerid INT REFERENCES donation_centers(centerid) NOT NULL
+    centerid INT REFERENCES donation_centers(centerid) NOT NULL,
+    UNIQUE (ngoid, centerid)
 );
 
 DROP TABLE IF EXISTS events;
@@ -100,5 +101,9 @@ CREATE TABLE donations (
     centerid INT REFERENCES donation_centers(centerid),
     eventid INT REFERENCES events(eventid),
     statusid INT NOT NULL REFERENCES donation_status(statusid),
-    donationdate DATE DEFAULT NOW()
+    donationdate DATE DEFAULT NOW(),
+    CONSTRAINT chk_ngoid_center CHECK (
+        centerid IS NULL OR
+        ngoid = (SELECT ngoid FROM ngo_center WHERE centerid = donations.centerid)
+    )
 );
