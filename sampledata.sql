@@ -196,11 +196,11 @@ INSERT INTO ngo_center (ngoid, centerid)
 ;
 
 INSERT INTO events (eventname, eventdescription, ngoid, startdate, enddate, eventtarget, quantitytarget)
-    VALUES 
+    VALUES
         ('Clothing April', 'T-shirts, jackets, trousers and baby clothes', 1, '2026-04-05', '2026-04-15', 7, 150),
         ('Shoes Collection May', 'Sneakers, boots, sandals for all', 1, '2026-05-01', '2026-05-10', 17, 100),
-        ('Hygiene June', 'Soap, shampoo, toothpaste, pads', 1, '2026-06-01', '2026-06-10', 22, 120),
-        ('Spring Food Drive', 'Rice, pasta, cooking oil and spices', 2, '2026-03-15', '2026-03-25', 4, 150)
+        ('Hygiene June', 'Soap, shampoo, toothpaste, pads', 1, '2026-06-01', '2026-06-10', 22, 120);
+        ('Spring Food Drive', 'Rice, pasta, cooking oil and spices', 2, '2026-03-15', '2026-03-25', 1, 150)
 ;
 
 INSERT INTO sizes (productsize)
@@ -213,14 +213,18 @@ INSERT INTO sizes (productsize)
 
 INSERT INTO donations (userid, ngocenterid, itemid, sizeid, quantity, donationdescription, eventid, statusid)
     VALUES
-        (1, 1, 1, NULL, 15, 'Canned food donation', 4, 1),
-        (2, 1, 2, NULL, 20, 'Dry food donation', 4, 1),
-        (3, 1, 8, 3, 3, 'Jackets donation', 1, 2),
-        (4, 1, 22, NULL, 12, 'Soap donation', 3, 1),
-        (5, 1, 32, NULL, 4, 'Blankets donation', 5, 1),
-        (6, 2, 3, NULL, 8, 'Baby food', 4, 1),
-        (7, 2, 18, 42, 3, 'Boots donation', 2, 1),
-        (8, 2, 25, NULL, 6, 'Baby hygiene products', 3, 1),
-        (9, 3, 19, 40, 2, 'Children sandals', 2, 1),
-        (10, 3, 27, NULL, 8, 'Toothbrushes donation', 3, 1)
+        (1, 3, 1, NULL, 15, 'Canned food donation', 4, 1),
+        (2, 3, 2, NULL, 20, 'Dry food donation', 4, 1),
+        (6, 3, 3, NULL, 8, 'Baby food donation', 4, 1),
+        (3, 1, 7, 2, 5, 'T-shirts Male', 1, 1),
+        (4, 1, 8, 3, 3, 'Jackets Female', 1, 2),
+        (5, 1, 9, 2, 4, 'Trousers Male', 1, 1),
+        (10, 1, 25, NULL, 6, 'Baby Clothes', 1, 1),
+        (7, 1, 17, 41, 2, 'Sneakers Male', 2, 1),
+        (8, 1, 18, 42, 3, 'Boots Female', 2, 1),
+        (9, 1, 19, 40, 2, 'Sandals Children', 2, 1),
+        (11, 1, 22, NULL, 12, 'Soap donation', 3, 1),
+        (12, 1, 23, NULL, 8, 'Shampoo donation', 3, 1),
+        (13, 1, 25, NULL, 6, 'Baby Hygiene Products', 3, 1),
+        (14, 1, 24, NULL, 5, 'Toothpaste donation', 3, 1)
 ;
