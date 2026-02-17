@@ -1,43 +1,152 @@
-INSERT INTO donation_status (donationstatus) 
-    VALUES 
-        ('Available'),
-        ('Reserved'),
-        ('Collected')
+INSERT INTO units (unitname) 
+    VALUES ('g'), ('kg'), ('piece'), ('pair'), ('pack')
+;
+ 
+INSERT INTO target_groups (groupname) 
+    VALUES ('General'), ('Male'), ('Female'), ('Children'), ('Baby')
 ;
 
-INSERT INTO donation_category (category, subcategory, unit, targetgroup)
-    VALUES 
-        ('Food', 'Canned food', 'kg', 'General'),
-        ('Food', 'Dry food', 'kg', 'General'),         
-        ('Food', 'Baby food',  'kg', 'Children'), 
-        ('Clothing', 'T-shirts', 'piece', 'Male'),
-        ('Clothing', 'T-shirts', 'piece', 'Female'),
-        ('Clothing', 'T-shirts', 'piece', 'Children'),
-        ('Clothing', 'Jackets', 'piece', 'Male'),
-        ('Clothing', 'Jackets', 'piece', 'Female'),
-        ('Clothing', 'Jackets', 'piece', 'Children'),
-        ('Clothing', 'Bottomwear', 'piece', 'Male'),
-        ('Clothing', 'Bottomwear', 'piece', 'Female'),
-        ('Clothing', 'Bottomwear', 'piece', 'Children'),
-        ('Clothing', 'Baby clothes', 'piece', 'Children'),
-        ('Shoes', 'Sneakers', 'pair', 'Male'),
-        ('Shoes', 'Sneakers', 'pair', 'Female'),
-        ('Shoes', 'Sneakers', 'pair', 'Children'),
-        ('Shoes', 'Boots', 'pair', 'Male'),
-        ('Shoes', 'Boots', 'pair', 'Female'),
-        ('Shoes', 'Children shoes', 'pair', 'Children'),
-        ('Hygiene Products', 'Soap', 'piece', 'General'),
-        ('Hygiene Products', 'Shampoo', 'piece', 'General'),
-        ('Hygiene Products', 'Toothpaste', 'piece', 'General'),
-        ('Hygiene Products', 'Baby hygiene products', 'piece', 'Children'),
-        ('Hygiene Products', 'Menstrual sanitary pads', 'pack' , 'Female')
+INSERT INTO categories (categoryname) 
+    VALUES ('Food'), ('Clothing'), ('Shoes'), ('Hygiene Products'), ('Household')
+;
+
+INSERT INTO subcategories (subcategoryname, categoryid) 
+    VALUES
+        ('Canned Food', 1),
+        ('Dry Food', 1),
+        ('Baby Food', 1),
+        ('Cooking Oil', 1),
+        ('Spices', 1),
+        ('Snacks', 1);
+INSERT INTO subcategories (subcategoryname, categoryid) 
+    VALUES
+        ('T-shirts', 2),
+        ('Jackets', 2),
+        ('Trousers', 2),
+        ('Sweaters', 2),
+        ('Dresses', 2),
+        ('Coats', 2),
+        ('Socks', 2),
+        ('Underwear', 2),
+        ('Scarves & Gloves', 2),
+        ('Baby Clothes', 2);
+INSERT INTO subcategories (subcategoryname, categoryid) 
+    VALUES
+        ('Sneakers', 3),
+        ('Boots', 3),
+        ('Sandals', 3),
+        ('Formal Shoes', 3),
+        ('Flip Flops', 3);
+INSERT INTO subcategories (subcategoryname, categoryid) 
+    VALUES
+        ('Soap', 4),
+        ('Shampoo', 4),
+        ('Toothpaste', 4),
+        ('Baby Hygiene Products', 4),
+        ('Menstrual Pads', 4),
+        ('Toothbrushes', 4),
+        ('Deodorant', 4),
+        ('Wet Wipes', 4),
+        ('Hand Sanitizer', 4),
+        ('Razors', 4);
+INSERT INTO subcategories (subcategoryname, categoryid) 
+    VALUES
+        ('Blankets', 5),
+        ('Towels', 5),
+        ('Kitchenware', 5),
+        ('Bedding Sets', 5),
+        ('Cleaning Supplies', 5),
+        ('Pots & Pans', 5),
+        ('Plates & Cups', 5),
+        ('Laundry Detergent', 5),
+        ('Small Appliances', 5),
+        ('Pillows', 5);
+
+INSERT INTO donation_items (subcategoryid, unitid, targetgroupid) 
+    VALUES
+        (1, 2, 1),
+        (2, 2, 1),
+        (3, 2, 5),
+        (4, 2, 1),
+        (5, 2, 1),
+        (6, 2, 1);
+INSERT INTO donation_items (subcategoryid, unitid, targetgroupid) 
+    VALUES
+        (7, 3, 2),
+        (7, 3, 3),
+        (7, 3, 4),
+        (8, 3, 2),
+        (8, 3, 3),
+        (8, 3, 4),
+        (9, 3, 2),
+        (9, 3, 3),
+        (9, 3, 4),
+        (10, 3, 2),
+        (10, 3, 3),
+        (10, 3, 4),
+        (11, 3, 3),
+        (11, 3, 4), 
+        (12, 3, 2),
+        (12, 3, 3),
+        (12, 3, 4),
+        (13, 3, 2),
+        (13, 3, 3),
+        (13, 3, 4),
+        (14, 3, 2),
+        (14, 3, 3),
+        (14, 3, 4),
+        (15, 3, 2),
+        (15, 3, 3),
+        (15, 3, 4),
+        (16, 3, 5);
+INSERT INTO donation_items (subcategoryid, unitid, targetgroupid) 
+VALUES
+        (17, 4, 2),
+        (17, 4, 3),
+        (17, 4, 4),
+        (18, 4, 2),
+        (18, 4, 3),
+        (18, 4, 4),
+        (19, 4, 2),
+        (19, 4, 3),
+        (19, 4, 4),
+        (20, 4, 2),
+        (20, 4, 3),
+        (21, 4, 2),
+        (21, 4, 3),
+        (21, 4, 4);
+INSERT INTO donation_items (subcategoryid, unitid, targetgroupid) 
+    VALUES
+        (22, 3, 1),
+        (23, 3, 1),
+        (24, 3, 1),
+        (25, 3, 5),
+        (26, 5, 3),
+        (27, 3, 1),
+        (28, 3, 1),
+        (29, 3, 1),
+        (30, 3, 1),
+        (31, 3, 1);
+INSERT INTO donation_items (subcategoryid, unitid, targetgroupid) 
+    VALUES
+        (32, 3, 1),
+        (33, 3, 1),
+        (34, 3, 1),
+        (35, 3, 1),
+        (36, 3, 1),
+        (37, 3, 1),
+        (38, 3, 1),
+        (39, 3, 1),
+        (40, 3, 1),
+        (41, 3, 1)
+;
+
+INSERT INTO donation_status (donationstatus) 
+    VALUES ('Available'), ('Reserved'), ('Collected')
 ;
 
 INSERT INTO usertype (userrole)
-    VALUES
-        ('donor'),
-        ('ngo admin'),
-        ('admin')
+    VALUES ('donor'), ('NGO admin'), ('admin')
 ;
 
 INSERT INTO users (username, userrole, contact)
@@ -83,15 +192,16 @@ INSERT INTO donation_centers (centername, street, city, postalcode, geolocation)
 ;
 
 INSERT INTO ngo_center (ngoid, centerid)
-    VALUES
-        (1, 1),  -- Green Future → Central Donation Center
-        (1, 2),  -- Green Future → North Center
-        (2, 2)   -- Helping Hands → North Center
+    VALUES (1, 1), (1, 2), (2, 2)
 ;
 
-INSERT INTO events (eventname, eventdescription, ngoid, startdate, enddate, target_categoryid, target_quantity)
+INSERT INTO events (eventname, eventdescription, ngoid, startdate, enddate, eventtarget, quantitytarget)
     VALUES 
-        ('Food January', 'Collecting canned and dry food', 1, '2026-03-01', '2026-03-10', 1, 100);
+        ('Clothing April', 'T-shirts, jackets, trousers and baby clothes', 1, '2026-04-05', '2026-04-15', 7, 150),
+        ('Shoes Collection May', 'Sneakers, boots, sandals for all', 1, '2026-05-01', '2026-05-10', 17, 100),
+        ('Hygiene June', 'Soap, shampoo, toothpaste, pads', 1, '2026-06-01', '2026-06-10', 22, 120),
+        ('Spring Food Drive', 'Rice, pasta, cooking oil and spices', 2, '2026-03-15', '2026-03-25', 4, 150)
+;
 
 INSERT INTO sizes (productsize)
     VALUES 
@@ -101,9 +211,16 @@ INSERT INTO sizes (productsize)
         ('42'), ('43'), ('44'), ('45'), ('46')
 ;
 
-INSERT INTO donations (userid, ngoid, categoryid, sizeid, quantity, centerid, statusid)
+INSERT INTO donations (userid, ngocenterid, itemid, sizeid, quantity, donationdescription, eventid, statusid)
     VALUES
-        (1, 1, 1, NULL, 10, 1, 1),
-        (2, 1, 2, NULL, 5, 1, 1),
-        (3, 2, 4, 2, 3, 2, 1)
-;  
+        (1, 1, 1, NULL, 15, 'Canned food donation', 4, 1),
+        (2, 1, 2, NULL, 20, 'Dry food donation', 4, 1),
+        (3, 1, 8, 3, 3, 'Jackets donation', 1, 2),
+        (4, 1, 22, NULL, 12, 'Soap donation', 3, 1),
+        (5, 1, 32, NULL, 4, 'Blankets donation', 5, 1),
+        (6, 2, 3, NULL, 8, 'Baby food', 4, 1),
+        (7, 2, 18, 42, 3, 'Boots donation', 2, 1),
+        (8, 2, 25, NULL, 6, 'Baby hygiene products', 3, 1),
+        (9, 3, 19, 40, 2, 'Children sandals', 2, 1),
+        (10, 3, 27, NULL, 8, 'Toothbrushes donation', 3, 1)
+;
