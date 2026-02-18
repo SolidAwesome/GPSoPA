@@ -102,7 +102,7 @@ CREATE TABLE events (
 DROP TABLE IF EXISTS sizes;
 CREATE TABLE sizes (
     sizeid SERIAL PRIMARY KEY,
-    productsize VARCHAR (10) NOT NULL UNIQUE
+    productsize VARCHAR(10) NOT NULL UNIQUE
 );
 
 DROP TABLE IF EXISTS donations CASCADE;
@@ -116,5 +116,5 @@ CREATE TABLE donations (
     donationdescription VARCHAR(150),
     eventid INT REFERENCES events(eventid),
     statusid INT NOT NULL REFERENCES donation_status(statusid),
-    donationdate 
+    donationdate DATE DEFAULT NOW()
 );
