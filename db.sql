@@ -33,9 +33,10 @@ CREATE TABLE subcategories (
 DROP TABLE IF EXISTS donation_items;
 CREATE TABLE donation_items (
     itemid SERIAL PRIMARY KEY,
+   -- categoryid INT REFERENCES categories(categoryid),
     subcategoryid INT NOT NULL REFERENCES subcategories(subcategoryid) ON DELETE RESTRICT,
     unitid INT NOT NULL REFERENCES units(unitid) ON DELETE RESTRICT,
-    targetgroupid INT NOT NULL REFERENCES target_groups(targetgroupid),
+    targetgroupid INT NOT NULL REFERENCES target_groups(targetgroupid) ON DELETE SET NULL,
     UNIQUE (subcategoryid, targetgroupid)
 );
 
