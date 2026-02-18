@@ -92,7 +92,7 @@ INSERT INTO donation_items (subcategoryid, unitid, targetgroupid) VALUES
     (23, 3, 1),
     (24, 3, 1),
     (25, 3, 5),
-    (26, 5, 3),
+    (26, 4, 3),
     (27, 3, 1),
     (28, 3, 1),
     (29, 3, 1),
@@ -159,7 +159,7 @@ INSERT INTO donation_centers (centername, street, city, postalcode, geolocation)
 INSERT INTO ngo_center (ngoid, centerid) VALUES 
     (1, 1), 
     (1, 2), 
-    (2, 2);
+    (2, 1);
 
 INSERT INTO events (eventname, eventdescription, ngoid, startdate, enddate, eventtarget, quantitytarget) VALUES
     ('Clothing April', 'T-shirts, jackets, trousers and baby clothes', 1, '2026-04-05', '2026-04-15', 7, 150),
@@ -177,9 +177,9 @@ INSERT INTO donations (userid, ngocenterid, itemid, sizeid, quantity, donationde
     (4, 1, 8, 3, 3, 'Female jackets', 1, 2),
     (5, 1, 9, 2, 4, 'Male trousers', 1, 1),
     (10, 1, 25, NULL, 6, 'Baby clothes', 1, 1),
-    (7, 1, 17, 41, 2, 'Sneakers men', 2, 1),
-    (8, 1, 18, 42, 3, 'Boots women', 2, 1),
-    (9, 1, 19, 40, 2, 'Children sandals', 2, 1),
+    (7, 1, 17, 16, 2, 'Sneakers men', 2, 1),
+    (8, 1, 18, 17, 3, 'Boots women', 2, 1),
+    (9, 1, 19, 15, 2, 'Children sandals', 2, 1),
     (11, 1, 22, NULL, 12, 'Soap donation', 3, 1),
     (12, 1, 23, NULL, 8, 'Shampoo donation', 3, 1),
     (13, 1, 25, NULL, 6, 'Baby hygiene products', 3, 1),
