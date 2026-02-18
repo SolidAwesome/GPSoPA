@@ -81,7 +81,7 @@ CREATE TABLE donation_centers (
 
 DROP TABLE IF EXISTS ngo_center;
 CREATE TABLE ngo_center (
-    ngo_center_id SERIAL PRIMARY KEY,
+    ngocenterid SERIAL PRIMARY KEY,
     ngoid INT NOT NULL REFERENCES ngo(ngoid) ON DELETE CASCADE,
     centerid INT NOT NULL REFERENCES donation_centers(centerid) ON DELETE CASCADE,
     UNIQUE (ngoid, centerid)
@@ -96,7 +96,7 @@ CREATE TABLE events (
     startdate DATE NOT NULL,
     enddate DATE,
     eventtarget INT NOT NULL REFERENCES donation_items(itemid),
-    quantitytarget INT CHECK (quantitytarget >= 0)
+    quantitytarget INT NOT NULL CHECK (quantitytarget >= 0)
 );
 
 DROP TABLE IF EXISTS sizes;
@@ -109,12 +109,12 @@ DROP TABLE IF EXISTS donations CASCADE;
 CREATE TABLE donations (
     id SERIAL PRIMARY KEY,
     userid INT NOT NULL REFERENCES users(userid),
-    ngo_center_id INT NOT NULL REFERENCES ngo_center(ngo_center_id),
+    ngocenterid INT NOT NULL REFERENCES ngo_center(ngocenterid),
     itemid INT NOT NULL REFERENCES donation_items(itemid),
     sizeid INT REFERENCES sizes(sizeid),
-    quantity INT NOT NULL CHECK (quantity > 0),
+    quantity INT CHECK (quantity > 0),
     donationdescription VARCHAR(150),
     eventid INT REFERENCES events(eventid),
     statusid INT NOT NULL REFERENCES donation_status(statusid),
-    donationdate DATE DEFAULT NOW()
+    donationdate 
 );
