@@ -81,7 +81,7 @@ CREATE TABLE donation_centers (
 
 DROP TABLE IF EXISTS ngo_center;
 CREATE TABLE ngo_center (
-    id SERIAL PRIMARY KEY,
+    ngo_center_id SERIAL PRIMARY KEY,
     ngoid INT NOT NULL REFERENCES ngo(ngoid) ON DELETE CASCADE,
     centerid INT NOT NULL REFERENCES donation_centers(centerid) ON DELETE CASCADE,
     UNIQUE (ngoid, centerid)
@@ -105,11 +105,11 @@ CREATE TABLE sizes (
     productsize VARCHAR (10) NOT NULL UNIQUE
 );
 
-DROP TABLE IF EXISTS donations;
+DROP TABLE IF EXISTS donations CASCADE;
 CREATE TABLE donations (
     id SERIAL PRIMARY KEY,
     userid INT NOT NULL REFERENCES users(userid),
-    ngocenterid INT NOT NULL REFERENCES ngo_center(id),
+    ngo_center_id INT NOT NULL REFERENCES ngo_center(ngo_center_id),
     itemid INT NOT NULL REFERENCES donation_items(itemid),
     sizeid INT REFERENCES sizes(sizeid),
     quantity INT NOT NULL CHECK (quantity > 0),
