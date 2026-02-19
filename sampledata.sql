@@ -1,3 +1,5 @@
+SET search_path TO donation; --so it doesn't use the public
+
 INSERT INTO units (unitname) VALUES 
     ('kg'),
     ('piece'),
