@@ -99,11 +99,11 @@ def run_etl():
         if lon is None or lat is None:
             continue  
 
-        # Transform: build our fields from OSM tags
-        centername = tags.get("name", f"Supermarket {el.get('id', '')}")
-        street = tags.get("addr:street", "")
-        city = tags.get("addr:city", "Lisbon")
-        postalcode = tags.get("addr:postcode", "0000-000")
+        # Transform: build our fields from OSM tags (truncated to fit schema limits)
+        centername = tags.get("name", f"Supermarket {el.get('id', '')}")[:150]
+        street = tags.get("addr:street", "")[:150]
+        city = tags.get("addr:city", "Lisbon")[:100]
+        postalcode = tags.get("addr:postcode", "0000-000")[:15]
 
         # Load: insert into donation_centers
         cur.execute(

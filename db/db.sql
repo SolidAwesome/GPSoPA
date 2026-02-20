@@ -1,10 +1,11 @@
 
 CREATE DATABASE sustainable_donation;
+CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE SCHEMA IF NOT EXISTS donation;
-SET search_path TO donation, public, postgis;
+SET search_path TO donation, public;
 DROP SCHEMA IF EXISTS donation CASCADE;
 CREATE SCHEMA donation;  
-CREATE EXTENSION IF NOT EXISTS postgis;
+
 
 CREATE TABLE units (
     unitid SERIAL PRIMARY KEY,
