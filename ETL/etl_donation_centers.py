@@ -10,8 +10,14 @@ import os
 import requests
 import psycopg2
 
-# Overpass API connection
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+# Overpass API connection, including two mirrors to ensure connection
+OVERPASS_URLS = [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+    "https://overpass.nchc.org.tw/api/interpreter"
+]
+
+OVERPASS_TIMEOUT = 180  # seconds
 
 # Overpass query: supermarkets inside the Lisbon administrative area
 OVERPASS_QUERY = r"""
@@ -28,6 +34,7 @@ out center;
 DB_SETTINGS = {
     "dbname": "sustainable_donation",
     "user": "postgres",
+    "password": "postgres",
     "host": "localhost",
     "port": "5432"
 }
@@ -38,15 +45,32 @@ def fetch_supermarkets():
 
     Calls the Overpass API and returns a list of supermarket elements
     (only nodes with shop=supermarket identifier) in Lisbon.
+    Tries multiple Overpass mirrors and responds with a clear error if all fail.
     """
-    response = requests.post(
-        OVERPASS_URL,
-        data={"data": OVERPASS_QUERY},
-        timeout=120
-    )
-    response.raise_for_status()
-    data = response.json()
-    return data.get("elements", [])
+    last_error = None
+
+    for url in OVERPASS_URLS:
+        print(f"Connecting to Overpass server: {url}")
+        try:
+            response = requests.post(
+                url,
+                data={"data": OVERPASS_QUERY},
+                timeout=OVERPASS_TIMEOUT
+            )
+            response.raise_for_status()
+            data = response.json()
+            elements = data.get("elements", [])
+            print(f"Received {len(elements)} elements from {url}")
+            return elements
+        except Exception as e:
+            print(f"Overpass request failed for {url}: {e}")
+            last_error = e
+
+    # If all servers failed the ETL ends here
+    raise RuntimeError(
+        "All Overpass API endpoints failed. "
+        "Please try again later. Could not connect to OSM Overpass service."
+    ) from last_error
 
 
 def run_etl():
