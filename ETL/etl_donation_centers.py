@@ -34,6 +34,7 @@ out center;
 DB_SETTINGS = {
     "dbname": "sustainable_donation",
     "user": "postgres",
+    "password": "postgres",
     "host": "localhost",
     "port": "5432"
 }
