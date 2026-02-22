@@ -1,4 +1,4 @@
-SET search_path TO donation; --so it doesn't use the public
+SET search_path TO donation, public;
 
 INSERT INTO units (unitname) VALUES 
     ('kg'),
