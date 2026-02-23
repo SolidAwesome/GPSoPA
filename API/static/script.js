@@ -19,8 +19,8 @@ function showSection(section) {
         case 'events':
             fetchEvents();
             break;
-        case 'items':
-            fetchItems();
+        case 'donations':
+            fetchDonations();
             break;
     }
 }
@@ -229,24 +229,36 @@ function fetchEvents() {
     .catch(err => console.error("Error fetching events:", err));
 }
 
-/////////////////////////////////////////////////////
-// DONATION ITEMS
+//////////////////////////////
+// DONATIONS
 /////////////////////////////////////////////////////
 
-function fetchItems() {
-    fetch("/donation_items")
+function fetchDonations(onlyAvailable = false) {
+    const url = onlyAvailable ? "/donations?only_available=true" : "/donations";
+
+    fetch(url)
     .then(res => res.json())
     .then(data => {
         const content = document.getElementById("content");
-        content.innerHTML = "<h2>Donation Items</h2><ul id='itemList'></ul>";
+        content.innerHTML = `
+            <h2>Donations</h2>
+            <label>
+                <input type="checkbox" id="availableFilter" ${onlyAvailable ? "checked" : ""}>
+                Show only Available
+            </label>
+            <ul id="donationList" style="margin-top:10px;"></ul>
+        `;
 
-        const list = document.getElementById("itemList");
+        document.getElementById("availableFilter").addEventListener("change", function() {
+            fetchDonations(this.checked);
+        });
 
-        data.forEach(item => {
+        const list = document.getElementById("donationList");
+        data.forEach(d => {
             const li = document.createElement("li");
-            li.textContent = item;
+            li.textContent = `${d.subcategory} | For: ${d.target_group} | Size: ${d.size} | Qty: ${d.quantity} | ${d.status}`;
             list.appendChild(li);
         });
     })
-    .catch(err => console.error("Error fetching items:", err));
+    .catch(err => console.error("Error fetching donations:", err));
 }
