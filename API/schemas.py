@@ -1,6 +1,10 @@
 # schemas.py
 from pydantic import BaseModel, EmailStr
 
+from pydantic import BaseModel
+from typing import Optional
+from datetime import date
+
 # -------------------
 # User Schema
 # -------------------
@@ -11,6 +15,15 @@ class UserResponse(BaseModel):
 
     class Config:
         from_attributes = True  # allows SQLAlchemy model -> Pydantic
+
+
+class UserUpdate(BaseModel):
+    username: Optional[str] = None
+    userrole: Optional[int] = None
+    contact: Optional[str] = None
+
+    class Config:
+        orm_mode = True
 
 # -------------------
 # NGO Schema
@@ -63,3 +76,21 @@ class UserCreate(BaseModel):
     username: str
     userrole: int
     contact: EmailStr
+
+# -------------------
+# Events Schema
+# -------------------
+
+
+class EventResponse(BaseModel):
+    eventid: int
+    eventname: str
+    eventdescription: Optional[str]
+    ngoid: int
+    startdate: date
+    enddate: Optional[date]
+    eventtarget: int
+    quantitytarget: int
+
+    class Config:
+        orm_mode = True

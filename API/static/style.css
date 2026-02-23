@@ -29,3 +29,16 @@ li {
     padding: 10px;
     border-radius: 5px;
 }
+
+.centers-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#center-map {
+    width: 100%;
+    max-width: 800px; /* optional */
+    border: 1px solid #ccc;
+}
