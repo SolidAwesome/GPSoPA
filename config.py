@@ -8,7 +8,7 @@ DATABASE_CONFIG = {
     "port": os.getenv("DB_PORT", "5432"),
     "database": os.getenv("DB_NAME", "sustainable_donation"),
     "user": os.getenv("DB_USER", "postgres"),
-    "password": os.getenv("DB_PASSWORD", "PROG26"),
+    "password": os.getenv("DB_PASSWORD", "postgres", "PROG26"),
 }
 
 DATABASE_URL = (
