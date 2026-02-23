@@ -1,0 +1,52 @@
+# ======================
+# SENSITIVE FILES
+# ======================
+.env
+*.env
+.env.*
+
+
+# ======================
+# PYTHON
+# ======================
+# Python recreates them automatically
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ======================
+# VIRTUAL ENVIRONMENTS
+# ======================
+# recreate them from requirements.txt
+venv/
+.venv/
+env/
+.conda/
+
+
+# ======================
+# IDE & EDITOR FILES
+# ======================
+# Settings specific to your computer/editor that others don't need
+.vscode/settings.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+
+# ======================
+# OS FILES
+# ======================
+# Files your operating system creates automatically
+.DS_Store        # Mac
+Thumbs.db        # Windows
+
+
+# ======================
+# LOGS & TEMPORARY FILES
+# ======================
+*.log
+*.tmp
+*.temp
+
+.env
