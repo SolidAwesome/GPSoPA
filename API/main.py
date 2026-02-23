@@ -2,14 +2,16 @@
 from fastapi import FastAPI, Depends, Request, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import List
 from functools import lru_cache
 import os
 
 from database import SessionLocal
 import crud
+from models import DonationItem, Donation, DonationStatus
 from schemas import UserResponse, NGOResponse, EventResponse, UserCreate, UserUpdate
+
 
 app = FastAPI(title="Sustainable Donation API")
 
@@ -84,7 +86,36 @@ def list_events(db: Session = Depends(get_db)):
     return crud.get_events(db)
 
 # --- Donation Items API ---
+'''
 @app.get("/donation_items")
 def list_donation_items(db: Session = Depends(get_db)):
     items = crud.get_items(db)
     return [f"Item {i.itemid}" for i in items]
+'''
+
+# --- Donations API ---
+@app.get("/donations")
+def list_donations(only_available: bool = False, db: Session = Depends(get_db)):
+    query = (
+        db.query(Donation)
+        .options(
+            joinedload(Donation.item).joinedload(DonationItem.subcategory),
+            joinedload(Donation.item).joinedload(DonationItem.target_group),
+            joinedload(Donation.size),
+            joinedload(Donation.status),
+        )
+    )
+    if only_available:
+        query = query.join(Donation.status).filter(DonationStatus.donationstatus == "Available")
+
+    donations = query.all()
+    return [
+        {
+            "subcategory": d.item.subcategory.subcategoryname if d.item and d.item.subcategory else "—",
+            "target_group": d.item.target_group.groupname if d.item and d.item.target_group else "—",
+            "size": d.size.productsize if d.size else "—",
+            "quantity": d.quantity,
+            "status": d.status.donationstatus if d.status else "—",
+        }
+        for d in donations
+    ]
