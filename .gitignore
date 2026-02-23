@@ -1,7 +1,6 @@
 # ======================
 # SENSITIVE FILES
 # ======================
-# Never upload credentials or environment variables
 .env
 *.env
 .env.*
@@ -49,3 +48,5 @@ Thumbs.db        # Windows
 *.log
 *.tmp
 *.temp
+
+.env
