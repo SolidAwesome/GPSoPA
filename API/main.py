@@ -1,17 +1,19 @@
+# main.py
 from fastapi import FastAPI, Depends, Request, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from typing import List
+from functools import lru_cache
 import os
 
 from database import SessionLocal
-from models import User, NGO, DonationCenter, DonationStatus, DonationItem
-from schemas import UserResponse, NGOResponse, DonationCenterResponse, UserCreate
+import crud
+from schemas import UserResponse, NGOResponse, EventResponse, UserCreate, UserUpdate
 
 app = FastAPI(title="Sustainable Donation API")
 
-# DB dependency
+# --- Database dependency ---
 def get_db():
     db = SessionLocal()
     try:
@@ -19,12 +21,12 @@ def get_db():
     finally:
         db.close()
 
-# Templates + static (relative paths)
+# --- Templates + static files ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
 
-# Frontend route
+# --- Frontend route ---
 @app.get("/", include_in_schema=False)
 def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
@@ -32,47 +34,57 @@ def home(request: Request):
 # --- Users API ---
 @app.get("/users", response_model=List[UserResponse])
 def list_users(db: Session = Depends(get_db)):
-    return db.query(User).all()
+    return crud.get_users(db)
 
 @app.post("/users")
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
-    new_user = User(
-        username=user.username,
-        userrole=user.userrole,
-        contact=user.contact
-    )
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-    return new_user
+    return crud.create_user(db, user.username, user.userrole, user.contact)
+
+@app.put("/users/{user_id}")
+def update_user(user_id: int, user: UserUpdate, db: Session = Depends(get_db)):
+    updated_user = crud.update_user_contact(db, user_id, user.contact)
+    if not updated_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return updated_user
 
 @app.delete("/users/{user_id}")
 def delete_user(user_id: int, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.userid == user_id).first()
-    if not user:
+    deleted_user = crud.delete_user(db, user_id)
+    if not deleted_user:
         raise HTTPException(status_code=404, detail="User not found")
-    db.delete(user)
-    db.commit()
     return {"message": f"User {user_id} deleted successfully"}
 
 # --- NGOs API ---
 @app.get("/ngos", response_model=List[NGOResponse])
 def list_ngos(db: Session = Depends(get_db)):
-    return db.query(NGO).all()
+    return crud.get_ngos(db)
 
-# --- Donation Centers API ---
-@app.get("/donation_centers", response_model=List[DonationCenterResponse])
-def list_centers(db: Session = Depends(get_db)):
-    return db.query(DonationCenter).all()
+# --- Donation Centers ---
 
-# --- Donation Status API ---
-@app.get("/donation_status", response_model=List[str])
-def list_statuses(db: Session = Depends(get_db)):
-    statuses = db.query(DonationStatus).all()
-    return [s.donationstatus for s in statuses]
+@app.get("/donation_centers")
+def donation_centers_list(db: Session = Depends(get_db)):
+    centers = crud.get_centers(db)
+    return [
+        {
+            "centerid": c.centerid,
+            "centername": c.centername,
+            "city": c.city
+        }
+        for c in centers
+    ]
+
+
+@app.get("/donation_centers_map")
+def donation_centers_map(db: Session = Depends(get_db)):
+    return crud.get_centers_map(db)
+
+# --- Events API ---
+@app.get("/events", response_model=List[EventResponse])
+def list_events(db: Session = Depends(get_db)):
+    return crud.get_events(db)
 
 # --- Donation Items API ---
-@app.get("/donation_items", response_model=List[str])
+@app.get("/donation_items")
 def list_donation_items(db: Session = Depends(get_db)):
-    items = db.query(DonationItem).all()
+    items = crud.get_items(db)
     return [f"Item {i.itemid}" for i in items]

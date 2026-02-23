@@ -3,27 +3,29 @@
 <head>
     <title>Donation Dashboard</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
 </head>
 <body>
 
 <h1>Donation System Dashboard</h1>
-
 <hr>
 
+<!-- Menu -->
 <div id="menu">
     <button onclick="showSection('users')">Users</button>
     <button onclick="showSection('ngos')">NGOs</button>
     <button onclick="showSection('centers')">Donation Centers</button>
-    <button onclick="showSection('status')">Donation Status</button>
+    <button onclick="showSection('events')">Events</button>
     <button onclick="showSection('items')">Donation Items</button>
 </div>
 
 <hr>
 
-<div id="content">
-    <!-- Dynamic content will appear here -->
-</div>
+<!-- Dynamic content container -->
+<div id="content"></div>
 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="/static/script.js"></script>
+
 </body>
 </html>
