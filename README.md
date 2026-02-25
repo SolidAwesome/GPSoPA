@@ -1,5 +1,5 @@
 
-# 📦 Sustainable Donation Management System
+# 📦 DONORGIS - Sustainable Donation Management System
 
 A web-based platform that connects donors, NGOs, and donation centers to make the process of donating items simple, trackable, and geographically aware.
 
@@ -7,7 +7,7 @@ A web-based platform that connects donors, NGOs, and donation centers to make th
 
 ## 📖 Overview
 
-___________ was built to solve a real problem: people want to donate items like clothes, food, and hygiene products, but don't know where to go or how to coordinate with NGOs efficiently.
+DONORGIS was built to solve a real problem: people want to donate items like clothes, food, and hygiene products, but don't know where to go or how to coordinate with NGOs efficiently.
 
 The system allows donors to register donations, NGOs to organize collection events, and everyone to visualize donation center locations on an interactive map. Geographic data for donation centers is pulled directly from OpenStreetMap using the Overpass API, making the locations real and up to date.
 
