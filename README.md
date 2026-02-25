@@ -161,27 +161,6 @@ PostgreSQL and PostGIS are used for spatial data storage and querying.
 | `donation.events` | NGO-organized collection drives |
 | `donation.donation_status` | Status values: Available, Reserved, Collected |
 
-#### 🔍 Example Queries
-
-- Get all donation centers with coordinates:
-```sql
-SELECT centername, city,
-       ST_X(ST_Transform(geolocation, 4326)) AS lng,
-       ST_Y(ST_Transform(geolocation, 4326)) AS lat
-FROM donation.donation_centers;
-```
-
-- Get all available donations with item details:
-```sql
-SELECT di.subcategoryname, tg.groupname, d.quantity, ds.donationstatus
-FROM donation.donations d
-JOIN donation.donation_items i ON d.itemid = i.itemid
-JOIN donation.subcategories di ON i.subcategoryid = di.subcategoryid
-JOIN donation.target_groups tg ON i.targetgroupid = tg.targetgroupid
-JOIN donation.donation_status ds ON d.statusid = ds.statusid
-WHERE ds.donationstatus = 'Available';
-```
-
 ---
 
 ## 🚀 API Endpoints
