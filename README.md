@@ -1,11 +1,11 @@
 
-# 📦 DONORGIS - Sustainable Donation Management System
+# DONORGIS - Sustainable Donation Integrated System
 
 A web-based platform that connects donors, NGOs, and donation centers to make the process of donating items simple, trackable, and geographically aware.
 
 ---
 
-## 📖 Overview
+## Overview
 
 DONORGIS was built to solve a real problem: people want to donate items like clothes, food, and hygiene products, but don't know where to go or how to coordinate with NGOs efficiently.
 
@@ -13,22 +13,22 @@ The system allows donors to register donations, NGOs to organize collection even
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature | Description |
 |---|---|
-| 👤 **User Management** | Create, edit, and delete donor profiles with email validation |
-| 🤝 **NGO Profiles** | View registered NGOs and their contact information |
-| 🗺️ **Interactive Map** | Leaflet.js map showing all donation centers with clickable markers |
-| 📋 **Donation Tracking** | Register donations with item type, size, quantity, and status |
-| 🎯 **NGO Events** | Collection drives with item targets, quantities, and date ranges |
-| 🔍 **Available Filter** | Filter donations by "Available" status with a single checkbox |
-| 🌍 **Geospatial Data** | Centers stored as PostGIS geometry, queried with ST_Transform |
-| 🔄 **ETL Pipeline** | Real supermarket locations in Lisbon loaded from OpenStreetMap |
+| **User Management** | Create, edit, and delete donor profiles with email validation |
+| **NGO Profiles** | View registered NGOs and their contact information |
+| **Interactive Map** | Leaflet.js map showing all donation centers with clickable markers |
+| **Donation Tracking** | Register donations with item type, size, quantity, and status |
+| **NGO Events** | Collection drives with item targets, quantities, and date ranges |
+| **Available Filter** | Filter donations by "Available" status with a single checkbox |
+| **Geospatial Data** | Centers stored as PostGIS geometry, queried with ST_Transform |
+| **ETL Pipeline** | Real supermarket locations in Lisbon loaded from OpenStreetMap |
 
 ---
 
-## 🗂️ Folder Structure
+## Folder Structure
 
 ```
 GPSoPA/
@@ -55,7 +55,7 @@ GPSoPA/
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 | Component | Technology |
 |---|---|
@@ -70,7 +70,7 @@ GPSoPA/
 
 ---
 
-## 💻 Installation & Setup
+## Installation & Setup
 
 1. **Clone the repository.**
 
@@ -121,7 +121,7 @@ DB_USER=postgres
 DB_PASSWORD=your_password_here
 ```
 
-> ⚠️ This file is git-ignored.
+> This file is git-ignored.
 
 6. **ETL process**
 
@@ -146,7 +146,7 @@ API documentation at: **http://localhost:8000/docs**
 
 ----
 
-## 🗄️ Database
+## Database
 
 PostgreSQL and PostGIS are used for spatial data storage and querying.
 
@@ -163,7 +163,7 @@ PostgreSQL and PostGIS are used for spatial data storage and querying.
 
 ---
 
-## 🚀 API Endpoints
+## API Endpoints
 
 | Endpoint | Method | Description |
 |---|---|---|
@@ -181,11 +181,11 @@ PostgreSQL and PostGIS are used for spatial data storage and querying.
 
 ---
 
-## 📊 Results & Conclusions
+## Results & Conclusions
 
 The system successfully delivers a full-stack donation management platform combining relational data, geospatial queries, a REST API, and an interactive web frontend.
 
-### ✅ What Worked Well
+### What Worked Well
 
 - The normalized PostgreSQL + PostGIS schema handles the full donation lifecycle cleanly, from item classification to status tracking
 - FastAPI provides validated, auto-documented endpoints out of the box
@@ -193,7 +193,7 @@ The system successfully delivers a full-stack donation management platform combi
 - The Leaflet.js map gives a spatial dimension to the data — users can visually locate nearby donation centers
 - The dashboard supports full CRUD for users without needing any external admin tool
 
-### ⚠️ Limitations & What Didn't Go as Planned
+### Limitations & What Didn't Go as Planned
 
 - **No authentication** — any user can edit or delete any record; this was planned but not implemented within the project timeline
 - **Role input is not user-friendly** — the user creation form requires typing a role integer ID instead of selecting from a dropdown
@@ -205,7 +205,7 @@ The system successfully delivers a full-stack donation management platform combi
 
 ---
 
-## 🔭 Next Steps
+## Next Steps
 
 1. **User authentication** — implement login/logout with JWT tokens so only authorized users can write data
 2. **Role-based access control** — restrict endpoints by user role (donor vs. NGO admin vs. system admin)
@@ -218,7 +218,7 @@ The system successfully delivers a full-stack donation management platform combi
 
 ---
 
-## 👥 Group Members
+## Group Members
 - Afonso Couchinho
 - Deni Ahmetaj
 - Dora Šakić
